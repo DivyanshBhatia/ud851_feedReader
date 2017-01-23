@@ -4,14 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.xyzreader.ui.ObservableScrollView
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <FrameLayout
+        android:layout_height="wrap_content"
+        style="@style/customPrimaryTheme"
+        android:fitsSystemWindows="true"
+        >
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main.appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="240dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/customPrimaryTheme"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
             <FrameLayout
                 android:id="@+id/photo_container"
@@ -24,9 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                     />
-            </FrameLayout>
-
+                    />
             <com.example.xyzreader.ui.MaxWidthLinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -85,7 +98,18 @@
 
             </com.example.xyzreader.ui.MaxWidthLinearLayout>
         </FrameLayout>
-    </com.example.xyzreader.ui.ObservableScrollView>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:titleMargins="0dp"
+                    android:layout_marginLeft="@dimen/list_toolbar_side_margin"
+                    android:layout_marginRight="@dimen/list_toolbar_side_margin"
+                    app:layout_collapseMode="pin"
+                    />
+           </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
@@ -96,6 +120,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_share"
         android:contentDescription="@string/action_share"
-         />
+        />
 
 </com.example.xyzreader.ui.DrawInsetsFrameLayout>
