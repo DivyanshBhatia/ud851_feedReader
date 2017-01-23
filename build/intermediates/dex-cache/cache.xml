@@ -147,15 +147,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.1"
-        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
-        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.0.1_329ee7100daf0a83b6b24359399c65604921dc0f.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
         jumboMode="false"
         optimize="true"
@@ -165,12 +156,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
-        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_53706e55f7107c738cb93f42adeb248d669db3b1.jar" />
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.0.1_329ee7100daf0a83b6b24359399c65604921dc0f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -183,12 +174,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
-        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.0.1_eccd18b64156bc6f3328aaf94121ffafb2fdebfd.jar" />
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_53706e55f7107c738cb93f42adeb248d669db3b1.jar" />
     </item>
     <item
         is-multidex="false"
@@ -198,6 +189,24 @@
         revision="25.0.1"
         sha1="783127c8b1d23b84cccc3dc776ca4637d4aba900">
         <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-palette-v7-25.0.1_ba9bd9585dbc4e40aab68ce7049d72e6036c386a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.0.1_eccd18b64156bc6f3328aaf94121ffafb2fdebfd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Dnbhatia\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\picasso-2.5.2_b99e83679f70a594d85745d6d3513819394cd6c4.jar" />
     </item>
     <item
         is-multidex="false"
@@ -219,21 +228,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.1"
-        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
-        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.0.1_6e62f51d091af60632e5acc9c03fa3236b794887.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\Dnbhatia\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
         jumboMode="false"
         optimize="true"
         revision="22.0.1"
         sha1="98476622f10715998eacf9240d6b479f12c66143">
         <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\okio-1.6.0_5fa30432946c57bf1a915399dd5a992eb56df727.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="C:\Users\Dnbhatia\Downloads\eBayVerify1-master\eBayVerify1-master\xyzreader\XYZReader\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.0.1_6e62f51d091af60632e5acc9c03fa3236b794887.jar" />
     </item>
     <item
         is-multidex="false"
