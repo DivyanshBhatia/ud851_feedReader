@@ -267,6 +267,7 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
+        Log.v(ArticleDetailFragment.class.getSimpleName(),id+"\t"+android.R.id.home);
         if(id==android.R.id.home){
             getActivity().finish();
         }
