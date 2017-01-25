@@ -33,4 +33,10 @@
     <style name="CollapseToolbarTheme" parent="Theme.AppCompat">
         <item name="android:textColor">@android:color/transparent</item>
     </style>
+
+    <style name="Theme.detailItemTheme" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/detail_text_color</item>
+        <item name="android:textColorLink">@color/theme_accent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
 </resources>
