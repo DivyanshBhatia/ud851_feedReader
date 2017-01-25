@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,7 +62,7 @@ public class ArticleDetailFragment extends Fragment implements
     private int mStatusBarFullOpacityBottom;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolBar;
-
+    private ImageButton imageButton;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -115,23 +116,19 @@ public class ArticleDetailFragment extends Fragment implements
         toolBar= (Toolbar) mRootView.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolBar);
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        ImageButton imageButton=(ImageButton)mRootView.findViewById(R.id.action_up);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                onSupportNavigateUp();
+                           }
+                    });
         collapsingToolbarLayout=(CollapsingToolbarLayout) mRootView.findViewById(R.id.toolbar_container);
 
                 mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
         mStatusBarColorDrawable = new ColorDrawable(0);
-
-        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-                        .setType("text/plain")
-                        .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)));
-            }
-        });
 
         bindViews();
         updateStatusBar();
@@ -272,5 +269,9 @@ public class ArticleDetailFragment extends Fragment implements
             getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onSupportNavigateUp(){
+        getActivity().onNavigateUp();
     }
 }
