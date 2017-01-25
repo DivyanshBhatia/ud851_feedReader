@@ -24,4 +24,5 @@
     <color name="ltgray">#ffe0e0e0</color>
     <color name="detail_background_color">#20000000</color>
     <color name="detail_text_color">#ff000000</color>
+    <color name="list_subtitle_color">#6000"</color>
 </resources>
