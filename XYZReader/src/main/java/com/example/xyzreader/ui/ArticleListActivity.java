@@ -14,13 +14,11 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -37,18 +35,51 @@ import com.squareup.picasso.Picasso;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
+public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static int TYPE_NOT_CONNECTED = 0;
+    public static int TYPE_WIFI = 1;
+    public static int TYPE_MOBILE = 2;
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private Snackbar snackbar;
     private CoordinatorLayout coordinatorLayout;
-    public static int TYPE_NOT_CONNECTED = 0;
-    public static int TYPE_WIFI=1;
-    public static int TYPE_MOBILE=2;
+    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean status = isConnectedToNetwork(context);
+            if (!status) {
+                setSnackbarMessage(getResources().getString(R.string.no_internet_connection), true);
+            }
 
+        }
+    };
+    private boolean mIsRefreshing = false;
+    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
+                mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
+                updateRefreshingUI();
+            }
+        }
+    };
+
+    public static int getConnectivityStatus(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (null != activeNetwork) {
+            if (activeNetwork.getType() == TYPE_WIFI)
+                return TYPE_WIFI;
+
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)
+                return TYPE_MOBILE;
+        }
+        return TYPE_NOT_CONNECTED;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +87,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_article_list);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        coordinatorLayout=(CoordinatorLayout)findViewById(R.id.list_coordinator_layout);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.list_coordinator_layout);
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
@@ -89,18 +120,6 @@ public class ArticleListActivity extends ActionBarActivity implements
         unregisterReceiver(broadcastReceiver);
     }
 
-    private boolean mIsRefreshing = false;
-
-    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
-                updateRefreshingUI();
-            }
-        }
-    };
-
     private void updateRefreshingUI() {
         mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
     }
@@ -124,6 +143,61 @@ public class ArticleListActivity extends ActionBarActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mRecyclerView.setAdapter(null);
+    }
+
+    private void registerInternetBroadcastReceiver() {
+        IntentFilter internetFilter = new IntentFilter();
+        internetFilter.addAction("android.net.wifi.STATE_CHANGE");
+        internetFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(broadcastReceiver, internetFilter);
+    }
+
+    private boolean isConnectedToNetwork(Context context) {
+        int conn = getConnectivityStatus(context);
+        String status = null;
+        boolean isConnected = false;
+        if (conn == TYPE_WIFI || conn == TYPE_MOBILE) {
+            isConnected = true;
+        } else if (conn == TYPE_NOT_CONNECTED) {
+            isConnected = false;
+        }
+        return isConnected;
+    }
+
+    private void setSnackbarMessage(String status, boolean showBar) {
+        String internetStatus = "";
+        snackbar = Snackbar.make(coordinatorLayout, internetStatus, Snackbar.LENGTH_LONG)
+                .setAction("X", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snackbar.dismiss();
+                    }
+                });
+        // Changing message text color
+        snackbar.setActionTextColor(Color.WHITE);
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        textView.setText(status);
+
+        if (showBar) {
+            snackbar.show();
+        }
+
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public DynamicHeightNetworkImageView thumbnailView;
+        public TextView titleView;
+        public TextView subtitleView;
+
+        public ViewHolder(View view) {
+            super(view);
+            thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
+            titleView = (TextView) view.findViewById(R.id.article_title);
+            subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
+        }
     }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
@@ -175,85 +249,5 @@ public class ArticleListActivity extends ActionBarActivity implements
         public int getItemCount() {
             return mCursor.getCount();
         }
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public DynamicHeightNetworkImageView thumbnailView;
-        public TextView titleView;
-        public TextView subtitleView;
-
-        public ViewHolder(View view) {
-            super(view);
-            thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
-            titleView = (TextView) view.findViewById(R.id.article_title);
-            subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
-        }
-    }
-
-    private void registerInternetBroadcastReceiver() {
-        IntentFilter internetFilter = new IntentFilter();
-        internetFilter.addAction("android.net.wifi.STATE_CHANGE");
-        internetFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(broadcastReceiver, internetFilter);
-    }
-    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            boolean status = isConnectedToNetwork(context);
-            if(!status){
-                setSnackbarMessage(getResources().getString(R.string.no_internet_connection),true);
-            }
-
-        }
-    };
-
-
-    public static int getConnectivityStatus(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (null != activeNetwork) {
-            if(activeNetwork.getType() == TYPE_WIFI)
-                return TYPE_WIFI;
-
-            if(activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)
-                return TYPE_MOBILE;
-        }
-        return TYPE_NOT_CONNECTED;
-    }
-
-    private boolean isConnectedToNetwork(Context context) {
-        int conn = getConnectivityStatus(context);
-        String status = null;
-        boolean isConnected=false;
-        if (conn == TYPE_WIFI || conn == TYPE_MOBILE) {
-            isConnected = true;
-        } else if (conn == TYPE_NOT_CONNECTED) {
-            isConnected=false;
-        }
-        return isConnected;
-    }
-
-    private void setSnackbarMessage(String status,boolean showBar) {
-        String internetStatus="";
-        snackbar = Snackbar.make(coordinatorLayout, internetStatus, Snackbar.LENGTH_LONG)
-                .setAction("X", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        snackbar.dismiss();
-                    }
-                });
-        // Changing message text color
-        snackbar.setActionTextColor(Color.WHITE);
-        // Changing action button text color
-        View sbView = snackbar.getView();
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(Color.WHITE);
-        textView.setText(status);
-
-        if(showBar){
-            snackbar.show();
-        }
-
     }
 }
